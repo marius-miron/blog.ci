@@ -56,19 +56,20 @@
     </head>
     <body>
         <div class="container">
-            <form role="form" class="form-signin">
-                <h2 class="form-signin-heading">Please sign in</h2>
-                <input type="email" autofocus="" required="" placeholder="Email address" class="form-control">
-                <input type="password" required="" placeholder="Password" class="form-control">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
-                <button type="submit" class="btn btn-lg btn-success btn-block ">Register</button>
-            </form>
-
+            <div class="row">
+                <form role="form" class="form-signin">
+                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <input type="text" autofocus="" required="" placeholder="Username" class="form-control">
+                    <input type="password" required="" placeholder="Password" class="form-control">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+                    <a href="/register" class="btn btn-success btn-lg btn-block" role="button">Register</a>
+                </form>
+            </div>
         </div>
 
         <p class="footer"></p>
