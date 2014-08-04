@@ -47,7 +47,10 @@ class User extends CI_Model {
 
         $this->password = $password;
     }
-
+    
+    /**
+     * insert Into Db action
+     */
     public function insertIntoDb() {
         
         $username = $this->getUsername();
@@ -56,5 +59,24 @@ class User extends CI_Model {
         $this->db->query("INSERT INTO users(username, password) VALUES('$username','$password')");
         
     }
-}
+    
+    /**
+     * validate user
+     * 
+     * @return boolean
+     */
+
+    public function validate(){
+        
+        $this->db->where('username', $this->input->post('username'));
+        $this->db->where('password', $this->input->post('password')); 
+        $query = $this->db->get('users');
+        
+        if($query->num_rows == 1 ){
+            return true;
+        }
+                
+    }
+    
+ }
 
