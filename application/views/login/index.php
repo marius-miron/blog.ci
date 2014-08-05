@@ -58,8 +58,10 @@
         <div class="container">
             <div class="row">
                 <form role="form" action="<?php echo base_url('login/validateUser'); ?>" class="form-signin" method="POST">
-                    <h2 class="form-signin-heading">Please sign in</h2>
-                    <div class="alert alert-danger"><?php echo $this->session->flashdata('message');?></div>
+                    <h2 class="form-signin-heading">Please sign in</h2>                    
+                    <?php if ($message = $this->session->flashdata('message')): ?>
+                            <div class="alert alert-danger"><?php echo $message; ?></div>
+                    <?php endif;?>
                     <input type="text" autofocus="" required="" name="username" placeholder="Username" class="form-control">
                     <input type="password" required="" name="password" placeholder="Password" class="form-control">
                     <div class="checkbox">
