@@ -17,7 +17,14 @@ class User extends CI_Model {
 
         return $this->username;
     }
-    
+    /**
+     * get Id
+     * @return type integer
+     */
+    public function getId() {
+        return $this->id;
+    }
+            
     /**
      * set username
      * 
@@ -37,7 +44,7 @@ class User extends CI_Model {
 
         return $this->password;
     }
-    
+
     /**
      * set password
      * 
@@ -47,36 +54,44 @@ class User extends CI_Model {
 
         $this->password = $password;
     }
-    
+
     /**
      * insert Into Db action
      */
     public function insertIntoDb() {
-        
-        $username = $this->getUsername();
-        $password = $this->getPassword();
-        
-        $this->db->query("INSERT INTO users(username, password) VALUES('$username','$password')");
-        
+        $this->db->insert('users', $this);
     }
-    
+
     /**
-     * validate user
+     * validate user by username and password
      * 
+     * @param string $username
+     * @param string $password
      * @return boolean
      */
+    public function validate($username, $password) {
 
-    public function validate(){
-        
-        $this->db->where('username', $this->input->post('username'));
-        $this->db->where('password', $this->input->post('password')); 
+        $this->db->where('username', $username);
+        $this->db->where('password', $password);
         $query = $this->db->get('users');
-        
+
         if($query->num_rows == 1 ){
             return true;
         }
-                
-    }
-    
- }
 
+        return false;
+    }
+        /*
+         * get user by username action
+         * @param string $username
+         */
+    public function getUserByUsername($username) {
+        $query = $this->db->get_where('users', array('username' => $username), 1);
+        foreach ($query->result() as $row) {
+            return $row;
+        }
+        
+        return null;
+    }
+
+}
