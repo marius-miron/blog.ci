@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ * Post class
  */
 class Post extends CI_Model {
 
@@ -68,6 +68,24 @@ class Post extends CI_Model {
         $this->db->set('message', $this->getMessage());
         $this->db->set('user_id', $this->getUserId());
         $this->db->insert('posts');
+    }
+    
+    /**
+     * Get all subjects by user id
+     * 
+     * @param integer $userId
+     * @return array
+     */
+    public function getAllPostsByUserId($userId){
+        
+        $query = $this->db->get_where('posts', array('user_id' => $userId));
+        $subjects = array();
+        foreach ($query->result() as $row) {
+            $subjects[] = $row->subject;
+        }
+        
+        return $subjects;
+        
     }
 
 }
