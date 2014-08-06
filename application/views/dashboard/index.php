@@ -156,9 +156,9 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Settings</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Help</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                        <li><a href="#"></a></li>
+                        <li><a href="#"></a></li>
                     </ul>
                     <form class="navbar-form navbar-right">
                         <input type="text" class="form-control" placeholder="Search...">
@@ -178,15 +178,15 @@
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li><a href="/dashboard/newPost">Add new post</a></li>
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
-                        <li><a href="">More navigation</a></li>
+                        <li><a href="/dashboard/allPosts">List all posts</a></li>
+                        <li><a href=""></a></li>
+                        <li><a href=""></a></li>
+                        <li><a href=""></a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
-                        <li><a href="">Nav item again</a></li>
-                        <li><a href="">One more nav</a></li>
-                        <li><a href="">Another nav item</a></li>
+                        <li><a href=""></a></li>
+                        <li><a href=""></a></li>
+                        <li><a href=""></a></li>
                     </ul>
                 </div>
             </div>    
@@ -195,10 +195,14 @@
 
                     <div class="row placeholders">
                         <?php if ($success = $this->session->flashdata('flashSuccess')): ?>
-                            <div class="alert alert-success"><?php echo $success; ?></div>
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span></button><?php echo $success; ?></div>
                         <?php endif;?>
-                         <?php if ($error = $this->session->flashdata('flashError')): ?>
-                            <div class="alert alert-danger"><?php echo $error; ?></div>
+                        <?php if ($error = $this->session->flashdata('flashError')): ?>
+                          <div class="alert alert-danger alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                              <span class="sr-only">Close</span></button><?php echo $error; ?></div>
                         <?php endif; ?>
                     </div>
                 </div>
