@@ -20,16 +20,18 @@ class Login extends CI_Controller {
 
         $this->load->library('form_validation');
         $this->load->model('User');
-        $query = $this->User->validate();
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+        $isValid = $this->User->validate($username, $password);
 
-        if ($query) {
+        if ($isValid) {
             //VALID login
-            $data = array(
-                'username' => $this->input->post('username'),
-                'is_logged_in' => true
-            );
-
-            $this->session->set_userdata($data);
+            $user = $this->User->getUserByUsername($username);
+            if (!$user) {
+                die('ERROR. User not found');
+            }
+            $this->load->library('auth');
+            $this->auth->login($user->id, $username);
             redirect('dashboard/index');
         } else {
             //INVALID login
