@@ -6,21 +6,33 @@
 class Dashboard extends CI_Controller {
 
     /**
+     * constructor
+     * load library auth
+     * redirect to base url if there is no logged in user
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->load->library('auth');
+        if (!$this->auth->isLoggedIn()) {
+            redirect(base_url());
+        }
+    }
+    /**
      * index action
      */
     public function index() {
-
+        
         $this->load->view('dashboard/index');
     }
 
     /**
      * newPost action
      */
-    public function newPost(){
-
+    public function newPost() {
+        
         $this->load->view('dashboard/newPost');
     
-    }
+       }
 
     /**
      * indexPost action
@@ -51,6 +63,19 @@ class Dashboard extends CI_Controller {
             $this->session->set_flashdata('flashSuccess', 'Your new post has been successfully saved !');
             redirect('dashboard/index');
         }
+    }
+    /**
+     * allPosts action
+     * get all posts from an user
+     */
+     public function allPosts() {
+        
+        $this->load->model('Post');
+        $this->load->library('auth');
+        $subjects = $this->Post->getAllPostsByUserId($this->auth->getUserId());
+        $data = array();
+        $data['subjects'] = $subjects;
+        $this->load->view('dashboard/allPosts', $data);
     }
 
 }
