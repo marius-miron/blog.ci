@@ -59,7 +59,10 @@ class User extends CI_Model {
      * insert Into Db action
      */
     public function insertIntoDb() {
-        $this->db->insert('users', $this);
+        
+        $this->db->set('username', $this->getUsername());
+        $this->db->set('password', $this->getPassword());
+        $this->db->insert('users');
     }
 
     /**
