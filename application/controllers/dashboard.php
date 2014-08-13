@@ -17,11 +17,12 @@ class Dashboard extends CI_Controller {
             redirect(base_url());
         }
     }
+
     /**
      * index action
      */
     public function index() {
-        
+
         $this->load->view('dashboard/index');
     }
 
@@ -29,10 +30,9 @@ class Dashboard extends CI_Controller {
      * newPost action
      */
     public function newPost() {
-        
+
         $this->load->view('dashboard/newPost');
-    
-       }
+    }
 
     /**
      * indexPost action
@@ -64,18 +64,57 @@ class Dashboard extends CI_Controller {
             redirect('dashboard/index');
         }
     }
+
     /**
      * allPosts action
      * get all posts from an user
      */
-     public function allPosts() {
-        
+    public function allPosts() {
+
         $this->load->model('Post');
         $this->load->library('auth');
         $subjects = $this->Post->getAllPostsByUserId($this->auth->getUserId());
         $data = array();
         $data['subjects'] = $subjects;
         $this->load->view('dashboard/allPosts', $data);
+    }
+
+    /**
+     * deletePost action
+     * delete a post of logged in user
+     */
+    public function deletePost() {
+
+        // luate din sesiune user id si subject
+        $this->load->library('auth');
+        $this->load->model('Post');
+        $this->Post->deletePostFromDb($this->uri->segment(3), $this->auth->getUserId());
+        redirect('dashboard/allPosts');
+    }
+    /**
+     * edit action
+     * edit a post of logged in user
+     */
+    public function edit() {
+        //we load the Post model  
+        $this->load->model('Post');
+        //we find a Post with an ID that is the 3rd segment in the URL
+        $post = $this->Post->getPostById($this->uri->segment(3));
+        //we get the Subject from the Post we found priviously
+        $this->load->view('dashboard/edit', $post);
+    }
+    /**
+     * editPost action
+     * update the post edited of logged in user
+     */
+    public function editPost() {
+        $data = $this->input->post();
+        $this->load->model('Post');
+        $this->Post->update($data['id'], $data);
+        
+        // Display success message
+        $this->session->set_flashdata('postUpdatedFlashSuccess', 'Your post has been successfuly updated !');
+        redirect('dashboard/allPosts');
     }
 
 }
